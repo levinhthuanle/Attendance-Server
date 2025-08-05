@@ -1,8 +1,8 @@
-\# 📱 Bluetooth Attendance System
+# 📱 Bluetooth Attendance System
 
 
 
-A secure, scalable, and BLE-powered mobile attendance system designed for universities and classrooms. The system supports role-based functionalities for \*\*students\*\* and \*\*teachers\*\*, ensuring accurate, real-time attendance tracking using Bluetooth Low Energy (BLE) technology.
+A secure, scalable, and BLE-powered mobile attendance system designed for universities and classrooms. The system supports role-based functionalities for **students** and **teachers**, ensuring accurate, real-time attendance tracking using Bluetooth Low Energy (BLE) technology.
 
 
 
@@ -10,17 +10,17 @@ A secure, scalable, and BLE-powered mobile attendance system designed for univer
 
 
 
-\## 🚀 1. System Overview
+## 🚀 1. System Overview
 
 
 
-\### A. Infrastructure \& Technology
+### A. Infrastructure & Technology
 
 
 
-\- \*\*API Backend\*\*: RESTful FastAPI service with JWT/OAuth2 authentication.
+- **API Backend**: RESTful FastAPI service with JWT/OAuth2 authentication.
 
-\- \*\*Database\*\*: Relational schema with key tables:
+- **Database**: Relational schema with key tables:
 
 &nbsp; - `Users` (students, teachers)
 
@@ -28,7 +28,7 @@ A secure, scalable, and BLE-powered mobile attendance system designed for univer
 
 &nbsp; - `AttendanceRecords`, `Configs`
 
-\- \*\*BLE (Bluetooth Low Energy)\*\*:
+- **BLE (Bluetooth Low Energy)**:
 
 &nbsp; - Peripheral mode for teachers (advertising)
 
@@ -36,7 +36,7 @@ A secure, scalable, and BLE-powered mobile attendance system designed for univer
 
 &nbsp; - Unique UUIDs for session identification
 
-\- \*\*Security\*\*:
+- **Security**:
 
 &nbsp; - Role-based access control (RBAC)
 
@@ -50,15 +50,15 @@ A secure, scalable, and BLE-powered mobile attendance system designed for univer
 
 
 
-\## 🎓 2. Student Role
+## 🎓 2. Student Role
 
 
 
-\### 2.1 Must-Have Features
+### 2.1 Must-Have Features
 
 
 
-\- \*\*Authentication\*\*:
+- **Authentication**:
 
 &nbsp; - Sign up / Login with email-password or SSO (Google, Facebook)
 
@@ -66,7 +66,7 @@ A secure, scalable, and BLE-powered mobile attendance system designed for univer
 
 
 
-\- \*\*Bluetooth Scanning\*\*:
+- **Bluetooth Scanning**:
 
 &nbsp; - Scan BLE signals from nearby teachers
 
@@ -74,7 +74,7 @@ A secure, scalable, and BLE-powered mobile attendance system designed for univer
 
 
 
-\- \*\*Auto Check-in\*\*:
+- **Auto Check-in**:
 
 &nbsp; - Mark attendance when a valid BLE signal is detected
 
@@ -84,7 +84,7 @@ A secure, scalable, and BLE-powered mobile attendance system designed for univer
 
 
 
-\- \*\*Attendance History\*\*:
+- **Attendance History**:
 
 &nbsp; - View past attendance by class and month
 
@@ -92,7 +92,7 @@ A secure, scalable, and BLE-powered mobile attendance system designed for univer
 
 
 
-\- \*\*Notifications\*\*:
+- **Notifications**:
 
 &nbsp; - Push notifications for session start/end
 
@@ -100,7 +100,7 @@ A secure, scalable, and BLE-powered mobile attendance system designed for univer
 
 
 
-\- \*\*Profile\*\*:
+- **Profile**:
 
 &nbsp; - Avatar, personal details
 
@@ -108,11 +108,11 @@ A secure, scalable, and BLE-powered mobile attendance system designed for univer
 
 
 
-\### 2.2 Nice-to-Have Features
+### 2.2 Nice-to-Have Features
 
 
 
-\- \*\*Manual Override\*\*:
+- **Manual Override**:
 
 &nbsp; - Request manual check-in if BLE fails (with reason)
 
@@ -120,13 +120,13 @@ A secure, scalable, and BLE-powered mobile attendance system designed for univer
 
 
 
-\- \*\*Offline Mode\*\*:
+- **Offline Mode**:
 
 &nbsp; - Store attendance locally and sync when back online
 
 
 
-\- \*\*Reminders \& Calendar Sync\*\*:
+- **Reminders & Calendar Sync**:
 
 &nbsp; - Pre-class reminders
 
@@ -134,7 +134,7 @@ A secure, scalable, and BLE-powered mobile attendance system designed for univer
 
 
 
-\- \*\*Gamification\*\*:
+- **Gamification**:
 
 &nbsp; - Badges: "100% Attendance", "Early Bird"
 
@@ -142,7 +142,7 @@ A secure, scalable, and BLE-powered mobile attendance system designed for univer
 
 
 
-\- \*\*In-Class Chat / Q\&A\*\*:
+- **In-Class Chat / Q&A**:
 
 &nbsp; - Submit questions to instructor during session
 
@@ -152,21 +152,21 @@ A secure, scalable, and BLE-powered mobile attendance system designed for univer
 
 
 
-\## 👩‍🏫 3. Teacher Role
+## 👩‍🏫 3. Teacher Role
 
 
 
-\### 3.1 Must-Have Features
+### 3.1 Must-Have Features
 
 
 
-\- \*\*Secure Login\*\*:
+- **Secure Login**:
 
 &nbsp; - Email-password login with optional 2FA (OTP via SMS/email)
 
 
 
-\- \*\*Class Management\*\*:
+- **Class Management**:
 
 &nbsp; - Create, edit, delete classes
 
@@ -174,7 +174,7 @@ A secure, scalable, and BLE-powered mobile attendance system designed for univer
 
 
 
-\- \*\*Attendance Session Control\*\*:
+- **Attendance Session Control**:
 
 &nbsp; - Create attendance sessions with start/end time
 
@@ -184,7 +184,7 @@ A secure, scalable, and BLE-powered mobile attendance system designed for univer
 
 
 
-\- \*\*Live Dashboard\*\*:
+- **Live Dashboard**:
 
 &nbsp; - Real-time list of checked-in students
 
@@ -192,7 +192,7 @@ A secure, scalable, and BLE-powered mobile attendance system designed for univer
 
 
 
-\- \*\*Reporting\*\*:
+- **Reporting**:
 
 &nbsp; - Export session/class attendance data (CSV/Excel)
 
@@ -200,11 +200,11 @@ A secure, scalable, and BLE-powered mobile attendance system designed for univer
 
 
 
-\### 3.2 Nice-to-Have Features
+### 3.2 Nice-to-Have Features
 
 
 
-\- \*\*Edit Attendance\*\*:
+- **Edit Attendance**:
 
 &nbsp; - Change student status post-session
 
@@ -212,7 +212,7 @@ A secure, scalable, and BLE-powered mobile attendance system designed for univer
 
 
 
-\- \*\*Advanced BLE Settings\*\*:
+- **Advanced BLE Settings**:
 
 &nbsp; - Rotating UUIDs to prevent spoofing
 
@@ -220,13 +220,13 @@ A secure, scalable, and BLE-powered mobile attendance system designed for univer
 
 
 
-\- \*\*Communication Tools\*\*:
+- **Communication Tools**:
 
 &nbsp; - Send notifications to students (e.g. session results, reminders)
 
 
 
-\- \*\*Analytics\*\*:
+- **Analytics**:
 
 &nbsp; - Monthly attendance heatmaps
 
@@ -234,7 +234,7 @@ A secure, scalable, and BLE-powered mobile attendance system designed for univer
 
 
 
-\- \*\*TA/Class Rep Delegation\*\*:
+- **TA/Class Rep Delegation**:
 
 &nbsp; - Assign teaching assistants or class leaders to manage check-ins
 
@@ -244,11 +244,11 @@ A secure, scalable, and BLE-powered mobile attendance system designed for univer
 
 
 
-\## 📈 4. Supporting Modules
+## 📈 4. Supporting Modules
 
 
 
-\- \*\*Notifications\*\*:
+- **Notifications**:
 
 &nbsp; - Firebase Cloud Messaging (FCM)
 
@@ -256,7 +256,7 @@ A secure, scalable, and BLE-powered mobile attendance system designed for univer
 
 
 
-\- \*\*Settings \& Help Center\*\*:
+- **Settings & Help Center**:
 
 &nbsp; - Light/dark mode
 
@@ -264,7 +264,7 @@ A secure, scalable, and BLE-powered mobile attendance system designed for univer
 
 
 
-\- \*\*Logging \& Monitoring\*\*:
+- **Logging & Monitoring**:
 
 &nbsp; - Security audits and action logs
 
@@ -274,7 +274,7 @@ A secure, scalable, and BLE-powered mobile attendance system designed for univer
 
 
 
-\- \*\*CI/CD \& Testing\*\*:
+- **CI/CD & Testing**:
 
 &nbsp; - Unit tests for BLE logic, API integration tests
 
