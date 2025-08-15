@@ -1,0 +1,8 @@
+fastapi[standard]
+sqlmodel
+uvicorn
+python-dotenv
+psycopg2-binary
+python-jose[cryptography] 
+passlib[bcrypt]
+pydantic_settings
