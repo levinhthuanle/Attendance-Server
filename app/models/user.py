@@ -1,12 +1,14 @@
-from sqlmodel import SQLModel, Field
-from typing import Optional
+from sqlalchemy import Column, Integer, String, Date
+from app.db.session import Base
 
-class User(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
-    username: str = Field(index=True, unique=True)
-    email: str = Field(index=True, unique=True)
-    full_name: Optional[str] = None
-    hashed_password: str
-    is_active: bool = True
-    is_superuser: bool = False
-    
+class User(Base):
+    __tablename__ = "User"
+
+    user_id = Column(Integer, primary_key=True, index=True)
+    email = Column(String(255), unique=True, index=True, nullable=False)
+    hashed_password = Column(String(255), nullable=False)
+    role = Column(String(255)) # Student, Teacher, Admin
+    first_name = Column(String(255))
+    last_name = Column(String(255))
+    department_id = Column(String(255))
+    DOB = Column(Date)
