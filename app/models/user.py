@@ -1,4 +1,5 @@
-from sqlalchemy import Column, Integer, String, Date
+from sqlalchemy import Column, Integer, String, Date, ForeignKey
+from sqlalchemy.orm import relationship
 from app.db.session import Base
 
 class User(Base):
@@ -10,5 +11,8 @@ class User(Base):
     role = Column(String(255)) # Student, Teacher, Admin
     first_name = Column(String(255))
     last_name = Column(String(255))
-    department_id = Column(String(255))
+    department_id = Column(String, ForeignKey("Department.department_id"))
     DOB = Column(Date)
+
+    department = relationship("Department", back_populates="users")
+
