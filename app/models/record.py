@@ -9,12 +9,9 @@ class Record(Base):
 
     record_id = Column(Integer, primary_key=True, index=True)
     student_id = Column(Integer, ForeignKey("Student.id"), nullable=False)
-    teacher_id = Column(Integer, ForeignKey("Teacher.id"), nullable=False)
     status = Column(String(255), nullable=False)
-    class_id = Column(String(255), ForeignKey("Class.class_id"), nullable=False)
-    start_time = Column(DateTime, nullable=False)
-    end_time = Column(DateTime, nullable=False)
-
+    session_id = Column(String(255), ForeignKey("Session.session_id"), nullable=False)
+    
+    
     student = relationship("Student", back_populates="records")
-    teacher = relationship("Teacher", back_populates="records")
-    class_ = relationship("Class", back_populates="records")
+    session = relationship("Session", back_populates="records")

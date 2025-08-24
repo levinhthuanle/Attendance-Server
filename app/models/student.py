@@ -12,5 +12,6 @@ class Student(Base):
     school_year = Column(String(255))
 
     user = relationship("User")
+    records = relationship("Record", back_populates="student")
 
 

@@ -8,7 +8,12 @@ from app.core import security
 from app.core.config import settings
 from app.schemas.user import UserLogin
 from app.schemas.token import Token, TokenRefresh
+
 from fastapi.responses import JSONResponse
+from fastapi import Depends
+from app.core.security import get_current_user
+
+
 
 router = APIRouter(prefix="/auth", tags=["Auth"])
 
@@ -88,3 +93,8 @@ def logout():
         status_code=200,
         content={"message": "Logged out successfully. Please discard tokens on client side."}
     )
+    
+    
+@router.get("/me/role")
+def get_current_user_role(current_user: User = Depends(get_current_user)):
+    return {"role": current_user.role}

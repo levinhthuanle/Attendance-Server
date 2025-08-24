@@ -4,13 +4,7 @@ from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 from app.db.session import Base
 from alembic import context
-from app.models.user import User  # Import your Base where models are defined
-from app.models.student import Student
-from app.models.teacher import Teacher
-from app.models.department import Department
-from app.models.course import Course
-from app.models.class_ import Class
-from app.models.record import Record
+import app.models
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config

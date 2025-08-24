@@ -1,6 +1,6 @@
+
 from sqlalchemy import Column, String
 from app.db.session import Base
-
 from sqlalchemy.orm import relationship
 
 class Department(Base):
