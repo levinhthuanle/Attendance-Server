@@ -5,3 +5,4 @@ from .class_ import Class
 from .student import Student
 from .teacher import Teacher
 from .record import Record
+from .session import Session

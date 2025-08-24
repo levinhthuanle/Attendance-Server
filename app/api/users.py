@@ -29,15 +29,14 @@ def create_user(user_in: UserCreate, db: Session = Depends(get_db)):
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
-
-    if user_in.role == "Student":
+    if user_in.role == "Student" or user_in.role == "student":
         new_student = Student(
             user_id=new_user.user_id,
             student_id=user_in.student_id,
             school_year=user_in.school_year
         )
         db.add(new_student)
-    elif user_in.role == "Teacher":
+    elif user_in.role == "Teacher" or user_in.role == "teacher":
         new_teacher = Teacher(
             user_id=new_user.user_id,
             teacher_id=user_in.teacher_id

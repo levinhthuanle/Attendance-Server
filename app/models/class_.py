@@ -11,4 +11,4 @@ class Class(Base):
     year = Column(Integer, nullable=False)
 
     course = relationship("Course", back_populates="classes")
-    records = relationship("Record", back_populates="class_")
+    sessions = relationship("Session", back_populates="class_")

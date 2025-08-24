@@ -12,4 +12,4 @@ class Teacher(Base):
     teacher_id = Column(String(255), unique=True, nullable=False)
 
     user = relationship("User")
-    records = relationship("Record", back_populates="teacher")
+    session = relationship("Session", back_populates="teacher")
