@@ -10,6 +10,7 @@ class Record(Base):
     record_id = Column(Integer, primary_key=True, index=True)
     student_id = Column(Integer, ForeignKey("Student.id"), nullable=False)
     status = Column(String(255), nullable=False)
+    session_id = Column(String(255), ForeignKey("Session.session_id"), nullable=False)
     
     
     student = relationship("Student", back_populates="records")

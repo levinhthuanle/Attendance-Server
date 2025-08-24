@@ -10,6 +10,6 @@ class Teacher(Base):
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("User.user_id"), nullable=False, unique=True)
     teacher_id = Column(String(255), unique=True, nullable=False)
-
+    
     user = relationship("User")
-    session = relationship("Session", back_populates="teacher")
+    sessions = relationship("Session", back_populates="teacher") 
