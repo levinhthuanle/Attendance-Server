@@ -11,6 +11,11 @@ class UserBase(BaseModel):
 
 class UserCreate(UserBase):
     password: str
+    
+    # If create student, so just fill in student id and vice versa
+    student_id: str | None = None 
+    teacher_id: str | None = None
+    school_year: str | None = None
 
 class UserLogin(BaseModel):
     email: EmailStr
