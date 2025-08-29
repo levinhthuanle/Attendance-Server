@@ -1,6 +1,5 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from datetime import datetime
-
 
 class SessionCreate(BaseModel):
     start_time: datetime
@@ -10,3 +9,4 @@ class SessionCreate(BaseModel):
 
 class SessionOut(SessionCreate):
     session_id: str
+    model_config = ConfigDict(from_attributes=True)
