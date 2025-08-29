@@ -1,8 +1,11 @@
 from fastapi import FastAPI
 from app.api import auth, users, session
-from app.db.session import Base, engine
-import app.models  
+from app.db.session import Base
+import app.models
+from sqlalchemy import create_engine
+from app.core.config import settings
 
+engine = create_engine(settings.DATABASE_URL)
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
