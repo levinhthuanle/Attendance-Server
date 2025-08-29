@@ -1,4 +1,5 @@
 
+import os
 from fastapi import FastAPI
 from app.api import auth, users, session
 from app.db.session import Base
@@ -13,7 +14,8 @@ def run_migrations():
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    run_migrations()
+    if os.getenv("APP_ENV") != "test":
+        run_migrations()
     yield
 
 app = FastAPI(lifespan=lifespan)
