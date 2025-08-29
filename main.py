@@ -1,11 +1,24 @@
+
+import os
 from fastapi import FastAPI
 from app.api import auth, users, session
-from app.db.session import Base, engine
-import app.models  
+from app.db.session import Base
+import app.models
+from sqlalchemy import create_engine
+from app.core.config import settings
+from contextlib import asynccontextmanager
 
-Base.metadata.create_all(bind=engine)
+def run_migrations():
+    engine = create_engine(settings.DATABASE_URL)
+    Base.metadata.create_all(bind=engine)
 
-app = FastAPI()
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    if os.getenv("APP_ENV") != "test":
+        run_migrations()
+    yield
+
+app = FastAPI(lifespan=lifespan)
 
 @app.get("/health")
 async def health_check():

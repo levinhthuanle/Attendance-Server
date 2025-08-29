@@ -7,3 +7,5 @@ python-jose[cryptography]
 passlib[bcrypt]
 pydantic_settings
 alembic
+testcontainers[postgresql]
+pytest
