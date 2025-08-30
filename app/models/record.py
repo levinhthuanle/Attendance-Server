@@ -1,3 +1,4 @@
+import uuid
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
 from app.db.session import Base
 
@@ -7,8 +8,8 @@ from sqlalchemy import ForeignKey
 class Record(Base):
     __tablename__ = "Record"
 
-    record_id = Column(Integer, primary_key=True, index=True)
-    student_id = Column(Integer, ForeignKey("Student.id"), nullable=False)
+    record_id = Column(String(255), primary_key=True, default=lambda: str(uuid.uuid4()))
+    student_id = Column(String(255), ForeignKey("Student.student_id"), nullable=False)
     status = Column(String(255), nullable=False)
     session_id = Column(String(255), ForeignKey("Session.session_id"), nullable=False)
     

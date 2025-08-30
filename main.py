@@ -1,7 +1,7 @@
 
 import os
 from fastapi import FastAPI
-from app.api import auth, users, session
+from app.api import auth, users, session, department, record, student
 from app.db.session import Base
 import app.models
 from sqlalchemy import create_engine
@@ -27,3 +27,6 @@ async def health_check():
 app.include_router(auth.router, prefix="/api/v1", tags=["Auth"])
 app.include_router(users.router, prefix="/api/v1", tags=["User"])
 app.include_router(session.router, prefix="/api/v1", tags=["Session"])
+app.include_router(department.router, prefix="/api/v1", tags=["Department"])
+app.include_router(record.router, prefix="/api/v1", tags=["Record"])
+app.include_router(student.router, prefix="/api/v1", tags=["Student"])
