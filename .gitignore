@@ -11,7 +11,7 @@ venv/
 .env/
 .env.*        # e.g. .env.development, .env.production
 .env
-
+.venv
 # VS Code settings
 .vscode/
 

@@ -55,20 +55,15 @@ def login(payload: UserLogin, db: Session = Depends(get_db)):
 
 @router.post("/refresh", response_model=Token)
 def refresh_token(data: TokenRefresh, db: Session = Depends(get_db)):
-    try:
-        # Decode refresh token
-        payload = security.decode_token(data.refresh_token)
-        user_id = payload.get("sub")
-        if user_id is None:
-            raise HTTPException(status_code=401, detail="Invalid refresh token")
-        
-        # Kiểm tra user còn tồn tại
-        user = db.query(User).filter(User.user_id == int(user_id)).first()
-        if not user:
-            raise HTTPException(status_code=401, detail="User not found")
-        
-    except JWTError:
+    payload = security.decode_token(data.refresh_token)
+    if not payload:
+        raise HTTPException(status_code=401, detail="Refresh token is invalid or expired")
+    user_id = payload.get("sub")
+    if user_id is None:
         raise HTTPException(status_code=401, detail="Invalid refresh token")
+    user = db.query(User).filter(User.user_id == int(user_id)).first()
+    if not user:
+        raise HTTPException(status_code=401, detail="User not found")
 
     # Tạo token mới
     new_access_token = security.create_access_token(
