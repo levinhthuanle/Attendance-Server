@@ -13,5 +13,5 @@ class Student(Base):
 
     user = relationship("User")
     records = relationship("Record", back_populates="student")
-
+    enrollments = relationship("Enrollment", back_populates="student")
 
