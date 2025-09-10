@@ -7,21 +7,21 @@ psql -h localhost -p 5434 -U postgres -d postgres -f sample_data.sql
 - Home Screen
 	- Lấy thông tin chung của sinh viên OK
 	- Lấy attendance record của sinh viên (tất cả) OK
-	- Kiểm tra sinh viên enroll trong class hay ko
+	- Kiểm tra sinh viên enroll trong class hay ko OK
 
 - Confirm Screen
 	- Lấy thông tin chung của một lớp sinh viên tham gia
 	- Nhận session id từ client (Server sẽ đánh dấu điểm danh sinh viên session này)
 
 - Classes Screen
-	- Lấy danh sách lớp sinh viên đang enroll
+	- Lấy danh sách lớp sinh viên đang enroll OK
 
 - Classes Detail Screen
 	* Lấy thông tin của một lớp sinh viên tham gia
-	- Lấy attendance record của sinh viên (theo lớp)
+	- Lấy attendance record của sinh viên (theo lớp) OK
 
 - Profile Screen
-	* Lấy thông tin chung của sinh viên
+	* Lấy thông tin chung của sinh viên OK
 
 ### Teacher Graph
 - Home Screen
