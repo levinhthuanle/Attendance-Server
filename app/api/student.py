@@ -8,6 +8,7 @@ from app.schemas.record import RecordCreate, RecordOut
 from app.models.student import Student
 from app.models.session import Session as SessionModel
 from app.models.enrollment import Enrollment
+from app.schemas.session import AttendanceRequest
 from app.schemas.student import StudentRecordOut, StudentFull
 from app.schemas.enrollment import EnrollmentCheckResponse
 from app.core.security import get_current_user
@@ -169,3 +170,59 @@ async def get_all_attendance_records(
     )
 
     return records
+
+@router.post("/roll_call", response_model=RecordOut)
+async def student_roll_call(
+    data: AttendanceRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    if current_user.role != "Student":
+        raise HTTPException(status_code=403, detail="Access denied: not a student")
+
+
+    student = db.query(Student).filter(Student.user_id == current_user.user_id).first()
+    if not student:
+        raise HTTPException(status_code=404, detail="Student not found")
+
+
+    session = db.query(SessionModel).filter(SessionModel.session_id == data.session_id).first()
+    if not session:
+        raise HTTPException(status_code=404, detail="Session not found")
+
+    # Kiểm tra enrollment (student phải học trong class này)
+    enrollment = (
+        db.query(Enrollment)
+        .filter(
+            Enrollment.student_id == student.student_id,
+            Enrollment.class_id == session.class_id
+        )
+        .first()
+    )
+    if not enrollment:
+        raise HTTPException(status_code=403, detail="Student not enrolled in this class")
+
+    # Kiểm tra đã có record chưa
+    record = (
+        db.query(Record)
+        .filter(
+            Record.student_id == student.student_id,
+            Record.session_id == session.session_id
+        )
+        .first()
+    )
+
+    if record:
+        record.status = data.status
+    else:
+        record = Record(
+            student_id=student.student_id,
+            session_id=session.session_id,
+            status=data.status
+        )
+        db.add(record)
+
+    db.commit()
+    db.refresh(record)
+
+    return record

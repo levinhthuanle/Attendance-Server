@@ -10,14 +10,14 @@ psql -h localhost -p 5434 -U postgres -d postgres -f sample_data.sql
 	- Kiểm tra sinh viên enroll trong class hay ko OK
 
 - Confirm Screen
-	- Lấy thông tin chung của một lớp sinh viên tham gia
-	- Nhận session id từ client (Server sẽ đánh dấu điểm danh sinh viên session này)
+	- Lấy thông tin chung của một lớp sinh viên tham gia OK
+	- Nhận session id từ client (Server sẽ đánh dấu điểm danh sinh viên session này) OK
 
 - Classes Screen
 	- Lấy danh sách lớp sinh viên đang enroll OK
 
 - Classes Detail Screen
-	* Lấy thông tin của một lớp sinh viên tham gia
+	* Lấy thông tin của một lớp sinh viên tham gia OK   
 	- Lấy attendance record của sinh viên (theo lớp) OK
 
 - Profile Screen
