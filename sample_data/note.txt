@@ -5,7 +5,7 @@ psql -h localhost -p 5434 -U postgres -d postgres -f sample_data.sql
 
 ### Student Graph
 - Home Screen
-	- Lấy thông tin chung của sinh viên
+	- Lấy thông tin chung của sinh viên OK
 	- Lấy attendance record của sinh viên (tất cả)
 	- Kiểm tra sinh viên enroll trong class hay ko
 

@@ -47,9 +47,6 @@ async def create_student_record(record: RecordCreate, db: Session = Depends(get_
     db.refresh(student)
     return student.records
 
-
-
-
 @router.get("/current", response_model=StudentFull)
 async def get_current_student(
     current_user: User = Depends(get_current_user),
@@ -71,3 +68,17 @@ async def get_current_student(
         school_year=student.school_year,
         department_id=current_user.department_id
     )
+
+@router.get("/attendance_records", response_model=list[RecordOut])
+async def get_attendance_records(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    if current_user.role != "Student":
+        raise HTTPException(status_code=403, detail="Access denied: not a student")
+
+    student = db.query(Student).filter(Student.user_id == current_user.user_id).first()
+    if not student:
+        raise HTTPException(status_code=404, detail="Student not found")
+
+    return student.records
