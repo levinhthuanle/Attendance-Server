@@ -25,8 +25,8 @@ psql -h localhost -p 5434 -U postgres -d postgres -f sample_data.sql
 
 ### Teacher Graph
 - Home Screen
-	- Lấy thông tin chung của giáo viên
-	- Lấy session giáo viên đã dạy
+	- Lấy thông tin chung của giáo viên OK
+	- Lấy session giáo viên đã dạy OK
 
 - Classes Screen
 	- Lấy class giáo viên đang dạy
