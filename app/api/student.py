@@ -5,7 +5,9 @@ from sqlalchemy.orm import Session
 from app.models.user import User
 from app.schemas.record import RecordCreate, RecordOut
 from app.models.student import Student
+from app.models.enrollment import Enrollment
 from app.schemas.student import StudentRecordOut, StudentFull
+from app.schemas.enrollment import EnrollmentCheckResponse
 from app.core.security import get_current_user
 
 router = APIRouter(prefix="/student", tags=["Student"])
@@ -82,3 +84,34 @@ async def get_attendance_records(
         raise HTTPException(status_code=404, detail="Student not found")
 
     return student.records
+
+
+@router.get("/check-enrollment/{class_id}", response_model=EnrollmentCheckResponse)
+async def check_enrollment(
+    class_id: str,
+    current_user = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    if current_user.role != "Student":
+        raise HTTPException(status_code=403, detail="Access denied: not a student")
+
+
+    student = db.query(Student).filter(Student.user_id == current_user.user_id).first()
+    if not student:
+        raise HTTPException(status_code=404, detail="Student not found")
+
+
+    enrollment = (
+        db.query(Enrollment)
+        .filter(
+            Enrollment.student_id == student.student_id,
+            Enrollment.class_id == class_id
+        )
+        .first()
+    )
+
+    return EnrollmentCheckResponse(
+        student_id=student.student_id,
+        class_id=class_id,
+        enrolled=enrollment is not None
+    )
