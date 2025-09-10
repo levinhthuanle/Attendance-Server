@@ -1,11 +1,12 @@
-from fastapi import APIRouter, Depends, HTTPException
 
+from fastapi import APIRouter, Depends, HTTPException
 from app.db.deps import get_db
 from sqlalchemy.orm import Session
 from app.models.user import User
 from app.schemas.record import RecordCreate, RecordOut
 from app.models.student import Student
-from app.schemas.student import StudentRecordOut
+from app.schemas.student import StudentRecordOut, StudentFull
+from app.core.security import get_current_user
 
 router = APIRouter(prefix="/student", tags=["Student"])
 
@@ -45,3 +46,28 @@ async def create_student_record(record: RecordCreate, db: Session = Depends(get_
     db.commit()
     db.refresh(student)
     return student.records
+
+
+
+
+@router.get("/current", response_model=StudentFull)
+async def get_current_student(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    if current_user.role != "Student":
+        raise HTTPException(status_code=403, detail="Access denied: not a student")
+    
+    student = db.query(Student).filter(Student.user_id == current_user.user_id).first()
+    if not student:
+        raise HTTPException(status_code=404, detail="Student not found")
+    
+    return StudentFull(
+        student_id=student.student_id,
+        email=current_user.email,
+        first_name=current_user.first_name,
+        last_name=current_user.last_name,
+        DOB=current_user.DOB,
+        school_year=student.school_year,
+        department_id=current_user.department_id
+    )
