@@ -73,7 +73,7 @@ async def get_current_student(
         department_id=current_user.department_id
     )
 
-@router.get("/attendance_records", response_model=list[RecordOut])
+@router.get("/all/attendance_records", response_model=list[RecordOut])
 async def get_attendance_records(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
