@@ -10,3 +10,7 @@ class SessionCreate(BaseModel):
 class SessionOut(SessionCreate):
     session_id: str
     model_config = ConfigDict(from_attributes=True)
+    
+class AttendanceRequest(BaseModel):
+    session_id: str
+    status: str = "Present"   
