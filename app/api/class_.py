@@ -11,6 +11,7 @@ from app.models.course import Course
 from app.models.teacher import Teacher
 from app.models.department import Department
 from app.models.session import Session as SessionModel
+from app.schemas.student import StudentBase
 
 router = APIRouter(prefix="/class", tags=["Class"])
 
@@ -66,3 +67,25 @@ async def get_class_information(
         department_id=result.department_id,
         department_name=result.department_name
     )
+
+
+@router.get("/{class_id}/students", response_model=list[StudentBase])
+async def get_class_students(
+    class_id: str,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    if current_user.role not in ["Teacher", "Admin"]:
+        raise HTTPException(status_code=403, detail="Access denied")
+
+    students = (
+        db.query(Student)
+        .join(Enrollment, Enrollment.student_id == Student.student_id)
+        .filter(Enrollment.class_id == class_id)
+        .all()
+    )
+
+    if not students:
+        raise HTTPException(status_code=404, detail="No students found in this class")
+
+    return students

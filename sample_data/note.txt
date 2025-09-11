@@ -32,8 +32,8 @@ psql -h localhost -p 5434 -U postgres -d postgres -f sample_data.sql
 	- Lấy class giáo viên đang dạy - /teacher/teaching_classes
 
 - Class Detail Screen
-	- Lấy thông tin chung của một lớp giáo viên dạy
-	- Lấy danh sách sinh viên tham gia class
+	- Lấy thông tin chung của một lớp giáo viên dạy - /class/{class_id}/information
+	- Lấy danh sách sinh viên tham gia class - /class/{class_id}/students
 	- Lấy danh sách session của class
 	- Tạo và trả về session id mới
 
