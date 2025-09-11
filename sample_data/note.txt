@@ -32,23 +32,23 @@ psql -h localhost -p 5434 -U postgres -d postgres -f sample_data.sql
 	- Lấy class giáo viên đang dạy - /teacher/teaching_classes
 
 - Class Detail Screen
-	- Lấy thông tin chung của một lớp giáo viên dạy
-	- Lấy danh sách sinh viên tham gia class
-	- Lấy danh sách session của class
-	- Tạo và trả về session id mới
+	- Lấy thông tin chung của một lớp giáo viên dạy - /class/{class_id}/information
+	- Lấy danh sách sinh viên tham gia class - /class/{class_id}/students
+	- Lấy danh sách session của class - /class/{class_id}/sessions
+	- Tạo và trả về session id mới - /session/
 
 - Take Attendance Screen
-	- Lấy danh sách sinh viên attend session
-	- Lấy danh sách sinh viên absent from session (cái này với cái trên có thể là 1)
+	- Lấy danh sách sinh viên attend session - /record/{session_id}
+	- Lấy danh sách sinh viên absent from session (cái này với cái trên có thể là 1) - /record/{session_id}
 
 - Class Students Screen
-	* Lấy danh sách sinh viên tham gia class
-	* Lấy record của sinh viên theo class
-	* Lấy danh sách session của class
+	* Lấy danh sách sinh viên tham gia class /class/{class_id}/students
+	* Lấy record của sinh viên theo class /class/{class_id}/records
+	* Lấy danh sách session của class - /class/{class_id}/sessions
 
 - Class Sessions Screen
-	* Lấy danh sách sinh viên attend session
-	* Lấy danh sách sinh viên absent from session (cái này với cái trên có thể là 1)
+	* Lấy danh sách sinh viên attend session - /record/{session_id}
+	* Lấy danh sách sinh viên absent from session (cái này với cái trên có thể là 1) - /record/{session_id}
 
 - Profile Screen
-	* Lấy thông tin chung của giáo viên
+	* Lấy thông tin chung của giáo viên /teacher/current
