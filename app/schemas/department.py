@@ -1,5 +1,5 @@
 from pydantic import BaseModel
 
-class Department(BaseModel):
+class DepartmentBase(BaseModel):
     department_id: str
     department_name: str

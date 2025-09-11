@@ -1,7 +1,7 @@
 
 import os
 from fastapi import FastAPI
-from app.api import auth, class_, users, session, department, record, student
+from app.api import auth, class_, users, session, department, record, student, teacher
 from app.db.session import Base
 import app.models
 from sqlalchemy import create_engine
@@ -31,3 +31,4 @@ app.include_router(department.router, prefix="/api/v1", tags=["Department"])
 app.include_router(record.router, prefix="/api/v1", tags=["Record"])
 app.include_router(student.router, prefix="/api/v1", tags=["Student"])
 app.include_router(class_.router, prefix="/api/v1", tags=["Class"])
+app.include_router(teacher.router, prefix="/api/v1", tags=["Teacher"])  

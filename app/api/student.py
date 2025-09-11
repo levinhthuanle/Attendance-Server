@@ -1,4 +1,3 @@
-
 from fastapi import APIRouter, Depends, HTTPException
 from app.db.deps import get_db
 from sqlalchemy.orm import Session, joinedload
