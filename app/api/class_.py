@@ -12,6 +12,7 @@ from app.models.teacher import Teacher
 from app.models.department import Department
 from app.models.session import Session as SessionModel
 from app.schemas.student import StudentBase
+from app.schemas.session import SessionInfo
 
 router = APIRouter(prefix="/class", tags=["Class"])
 
@@ -89,3 +90,23 @@ async def get_class_students(
         raise HTTPException(status_code=404, detail="No students found in this class")
 
     return students
+
+@router.get("/{class_id}/sessions", response_model=list[SessionInfo])
+async def get_class_sessions(
+    class_id: str,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    if current_user.role not in ["Student", "Teacher", "Admin"]:
+        raise HTTPException(status_code=403, detail="Access denied")
+
+    sessions = (
+        db.query(SessionModel)
+        .filter(SessionModel.class_id == class_id)
+        .all()
+    )
+
+    if not sessions:
+        raise HTTPException(status_code=404, detail="No sessions found for this class")
+
+    return sessions

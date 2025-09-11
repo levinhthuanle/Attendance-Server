@@ -14,3 +14,11 @@ class SessionOut(SessionCreate):
 class AttendanceRequest(BaseModel):
     session_id: str
     status: str = "Present"   
+
+class SessionInfo(BaseModel):
+    session_id: str
+    start_time: datetime
+    end_time: datetime
+
+    class Config:
+        orm_mode = True
