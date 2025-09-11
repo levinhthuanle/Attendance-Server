@@ -5,31 +5,31 @@ psql -h localhost -p 5434 -U postgres -d postgres -f sample_data.sql
 
 ### Student Graph
 - Home Screen
-	- Lấy thông tin chung của sinh viên OK
-	- Lấy attendance record của sinh viên (tất cả) OK
-	- Kiểm tra sinh viên enroll trong class hay ko OK
+	- Lấy thông tin chung của sinh viên - /student/current
+	- Lấy attendance record của sinh viên (tất cả) - /student/all/attendance_records
+	- Kiểm tra sinh viên enroll trong class hay ko - /student/check-enrollment/{class_id}
 
 - Confirm Screen
-	- Lấy thông tin chung của một lớp sinh viên tham gia OK
-	- Nhận session id từ client (Server sẽ đánh dấu điểm danh sinh viên session này) OK
+	- Lấy thông tin chung của một lớp sinh viên tham gia - /class/{class_id}/information
+	- Nhận session id từ client (Server sẽ đánh dấu điểm danh sinh viên session này) - /student//roll_call
 
 - Classes Screen
-	- Lấy danh sách lớp sinh viên đang enroll OK
+	- Lấy danh sách lớp sinh viên đang enroll - /student/all/class/enroll
 
 - Classes Detail Screen
-	* Lấy thông tin của một lớp sinh viên tham gia OK   
-	- Lấy attendance record của sinh viên (theo lớp) OK
+	* Lấy thông tin của một lớp sinh viên tham gia OK  - /class//{class_id}/information 
+	- Lấy attendance record của sinh viên (theo lớp) /student/{class_id}/all/attendance_records
 
 - Profile Screen
-	* Lấy thông tin chung của sinh viên OK
+	* Lấy thông tin chung của sinh viên - /student/current
 
 ### Teacher Graph
 - Home Screen
-	- Lấy thông tin chung của giáo viên OK
-	- Lấy session giáo viên đã dạy OK
+	- Lấy thông tin chung của giáo viên - /teacher/current
+	- Lấy session giáo viên đã dạy OK - /teacher/teaching_sessions/
 
 - Classes Screen
-	- Lấy class giáo viên đang dạy
+	- Lấy class giáo viên đang dạy - /teacher/teaching_classes
 
 - Class Detail Screen
 	- Lấy thông tin chung của một lớp giáo viên dạy

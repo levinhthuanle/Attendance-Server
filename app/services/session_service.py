@@ -25,3 +25,6 @@ def get_current_session_service(db: Session, class_id: str) -> list[SessionOut]:
         )
         .all()
     )
+    
+def get_session_service(db: Session, session_id: str) -> SessionOut | None:
+    return db.query(SessionModel).filter(SessionModel.session_id == session_id).first()

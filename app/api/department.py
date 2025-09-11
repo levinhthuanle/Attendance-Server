@@ -3,7 +3,7 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 from app.db.deps import get_db
 from app.models.department import Department
-from app.schemas.department import Department as DepartmentOut
+from app.schemas.department import DepartmentBase as DepartmentOut
 
 router = APIRouter(prefix="/department", tags=["Department"])
 
