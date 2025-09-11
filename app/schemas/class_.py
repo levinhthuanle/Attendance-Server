@@ -10,5 +10,8 @@ class ClassInformation(ClassBase):
     teacher_name: str
     department_id: str 
     department_name: str
+    semester: str | None = None
+    year: int | None = None
+    
 
     model_config = ConfigDict(from_attributes=True)
