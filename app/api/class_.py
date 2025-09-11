@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from app.core.security import get_current_user
 from app.db.deps import get_db
 from app.models.enrollment import Enrollment
+from app.models.record import Record
 from app.models.student import Student
 from app.models.user import User
 from app.schemas.class_ import ClassInformation
@@ -13,6 +14,7 @@ from app.models.department import Department
 from app.models.session import Session as SessionModel
 from app.schemas.student import StudentBase
 from app.schemas.session import SessionInfo
+from app.schemas.record import RecordOut
 
 router = APIRouter(prefix="/class", tags=["Class"])
 
@@ -110,3 +112,25 @@ async def get_class_sessions(
         raise HTTPException(status_code=404, detail="No sessions found for this class")
 
     return sessions
+
+@router.get("/{class_id}/records", response_model=list[RecordOut])
+async def get_class_records(
+    class_id: str,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    
+    if current_user.role not in ["Teacher", "Admin"]:
+        raise HTTPException(status_code=403, detail="Access denied")
+
+    records = (
+        db.query(Record)
+        .join(SessionModel, Record.session_id == SessionModel.session_id)
+        .filter(SessionModel.class_id == class_id)
+        .all()
+    )
+
+    if not records:
+        raise HTTPException(status_code=404, detail="No records found for this class")
+
+    return records
