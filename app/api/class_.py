@@ -51,7 +51,9 @@ async def get_class_information(
             Course.course_name,
             (User.first_name + " " + User.last_name).label("teacher_name"),
             Department.department_id,
-            Department.department_name
+            Department.department_name,
+            Class.semester,
+            Class.year
         )
         .join(Course, Class.course_id == Course.course_id)
         .join(Teacher, Class.teacher_id == Teacher.teacher_id)
@@ -69,6 +71,8 @@ async def get_class_information(
         teacher_name=result.teacher_name,
         department_id=result.department_id,
         department_name=result.department_name
+        , semester=result.semester
+        , year=result.year
     )
 
 
