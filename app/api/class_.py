@@ -24,22 +24,6 @@ async def get_class_information(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-
-    # lấy student record
-    student = db.query(Student).filter(Student.user_id == current_user.user_id).first()
-    if not student:
-        raise HTTPException(status_code=404, detail="Student not found")
-
-    # kiểm tra enrollment
-    enrollment = (
-        db.query(Enrollment)
-        .filter(Enrollment.student_id == student.student_id,
-                Enrollment.class_id == class_id)
-        .first()
-    )
-    if not enrollment:
-        raise HTTPException(status_code=403, detail="Student not enrolled in this class")
-
     result = (
         db.query(
             Class.class_id,
@@ -60,6 +44,9 @@ async def get_class_information(
         .first()
     )
 
+    if not result:
+        raise HTTPException(status_code=404, detail="Class not found")
+
     return ClassInformation(
         class_id=result.class_id,
         course_id=result.course_id,
@@ -67,10 +54,11 @@ async def get_class_information(
         course_name=result.course_name,
         teacher_name=result.teacher_name,
         department_id=result.department_id,
-        department_name=result.department_name
-        , semester=result.semester
-        , year=result.year
+        department_name=result.department_name,
+        semester=result.semester,
+        year=result.year
     )
+
 
 
 @router.get("/{class_id}/students", response_model=list[StudentBase])
