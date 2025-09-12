@@ -19,7 +19,6 @@ def get_users(db: Session = Depends(get_db)):
     return db.query(User).all()
 
 
-
 @router.get("/current", response_model=UserOut)
 def get_current_user(current_user: User = Depends(get_current_user_dep)):
     return current_user

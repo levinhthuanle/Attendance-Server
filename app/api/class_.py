@@ -25,7 +25,7 @@ async def get_class_information(
     db: Session = Depends(get_db)
 ):
     # chỉ cho phép student check lớp mà mình tham gia
-    if current_user.role != "Student":
+    if current_user.role != "Student" and current_user.role != "student":
         raise HTTPException(status_code=403, detail="Access denied: not a student")
 
     # lấy student record
@@ -82,7 +82,7 @@ async def get_class_students(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    if current_user.role not in ["Teacher", "Admin"]:
+    if current_user.role not in ["Teacher", "Admin", "teacher", "admin"]:
         raise HTTPException(status_code=403, detail="Access denied")
 
     students = (
@@ -103,7 +103,7 @@ async def get_class_sessions(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    if current_user.role not in ["Student", "Teacher", "Admin"]:
+    if current_user.role not in ["Student", "Teacher", "Admin", "teacher", "admin", "student"]:
         raise HTTPException(status_code=403, detail="Access denied")
 
     sessions = (
@@ -124,7 +124,7 @@ async def get_class_records(
     db: Session = Depends(get_db)
 ):
     
-    if current_user.role not in ["Teacher", "Admin"]:
+    if current_user.role not in ["Teacher", "Admin", "teacher", "admin"]:
         raise HTTPException(status_code=403, detail="Access denied")
 
     records = (
