@@ -56,7 +56,7 @@ async def get_current_student(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    if current_user.role != "Student":
+    if current_user.role != "Student" and current_user.role != "student":
         raise HTTPException(status_code=403, detail="Access denied: not a student")
     
     student = db.query(Student).filter(Student.user_id == current_user.user_id).first()
@@ -78,7 +78,7 @@ async def get_attendance_records(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    if current_user.role != "Student":
+    if current_user.role != "Student" and current_user.role != "student":
         raise HTTPException(status_code=403, detail="Access denied: not a student")
 
     student = db.query(Student).filter(Student.user_id == current_user.user_id).first()
@@ -93,7 +93,7 @@ async def check_enrollment(
     current_user = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    if current_user.role != "Student":
+    if current_user.role != "Student" and current_user.role != "student":
         raise HTTPException(status_code=403, detail="Access denied: not a student")
 
 
@@ -122,7 +122,7 @@ async def get_all_class_enrollments(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    if current_user.role != "Student":
+    if current_user.role != "Student"   and current_user.role != "student":
         raise HTTPException(status_code=403, detail="Access denied: not a student")
 
     student = db.query(Student).filter(Student.user_id == current_user.user_id).first()
@@ -150,7 +150,7 @@ async def get_all_attendance_records(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    if current_user.role != "Student":
+    if current_user.role != "Student" and current_user.role != "student":
         raise HTTPException(status_code=403, detail="Access denied: not a student")
 
     student = db.query(Student).filter(Student.user_id == current_user.user_id).first()
@@ -176,7 +176,7 @@ async def student_roll_call(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    if current_user.role != "Student":
+    if current_user.role != "Student" and current_user.role != "student":
         raise HTTPException(status_code=403, detail="Access denied: not a student")
 
 
@@ -225,3 +225,28 @@ async def student_roll_call(
     db.refresh(record)
 
     return record
+
+@router.get("/{student_id}/full", response_model=StudentFull)
+async def get_full_student(
+    student_id: str,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+
+    student = db.query(Student).filter(Student.student_id == student_id).first()
+    if not student:
+        raise HTTPException(status_code=404, detail="Student not found")
+
+    user = db.query(User).filter(User.user_id == student.user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found for this student")
+
+    return StudentFull(
+        student_id=student.student_id,
+        email=user.email,
+        first_name=user.first_name,
+        last_name=user.last_name,
+        DOB=user.DOB,
+        school_year=student.school_year,
+        department_id=user.department_id
+    )

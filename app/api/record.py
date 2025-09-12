@@ -29,7 +29,7 @@ async def get_session_records(
     db: Session = Depends(get_db)
 ):
 
-    if current_user.role not in ["Teacher", "Admin"]:
+    if current_user.role not in ["Teacher", "Admin", "teacher", "admin"]:
         raise HTTPException(status_code=403, detail="Access denied")
 
     records = (

@@ -20,7 +20,7 @@ async def get_current_teacher(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    if current_user.role != "Teacher":
+    if current_user.role != "Teacher" and current_user.role != "teacher":
         raise HTTPException(status_code=403, detail="Access denied: not a teacher")
 
     teacher = db.query(Teacher).filter(Teacher.user_id == current_user.user_id).first()
@@ -41,7 +41,7 @@ async def get_teaching_sessions(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    if current_user.role != "Teacher":
+    if current_user.role != "Teacher" and current_user.role != "teacher":
         raise HTTPException(status_code=403, detail="Access denied: not a teacher")
 
     teacher = db.query(Teacher).filter(Teacher.user_id == current_user.user_id).first()
@@ -61,14 +61,14 @@ async def get_teaching_classes(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    if current_user.role != "Teacher":
+    if current_user.role != "Teacher" and current_user.role != "teacher":
         raise HTTPException(status_code=403, detail="Access denied: not a teacher")
 
     teacher = db.query(Teacher).filter(Teacher.user_id == current_user.user_id).first()
     if not teacher:
         raise HTTPException(status_code=404, detail="Teacher not found")
 
-    DeptCourse = aliased(Department)  # SQLAlchemy model, không phải Pydantic
+    DeptCourse = aliased(Department) 
 
     classes = (
         db.query(
