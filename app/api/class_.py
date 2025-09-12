@@ -24,9 +24,6 @@ async def get_class_information(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    # chỉ cho phép student check lớp mà mình tham gia
-    if current_user.role != "Student" and current_user.role != "student":
-        raise HTTPException(status_code=403, detail="Access denied: not a student")
 
     # lấy student record
     student = db.query(Student).filter(Student.user_id == current_user.user_id).first()
