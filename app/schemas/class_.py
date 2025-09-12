@@ -15,3 +15,8 @@ class ClassInformation(ClassBase):
     
 
     model_config = ConfigDict(from_attributes=True)
+    
+class ClassCreate(ClassBase):
+    semester: str | None = None
+    year: int | None = None
+    model_config = ConfigDict(from_attributes=True)

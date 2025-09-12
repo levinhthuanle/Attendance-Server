@@ -6,7 +6,7 @@ from app.models.enrollment import Enrollment
 from app.models.record import Record
 from app.models.student import Student
 from app.models.user import User
-from app.schemas.class_ import ClassInformation
+from app.schemas.class_ import ClassInformation, ClassCreate
 from app.models.class_ import Class
 from app.models.course import Course
 from app.models.teacher import Teacher
@@ -59,6 +59,24 @@ async def get_class_information(
         year=result.year
     )
 
+
+@router.post("/", response_model=ClassCreate)
+async def create_class(
+    class_data: ClassCreate,
+    db: Session = Depends(get_db)
+):
+
+    new_class = Class(
+        class_id=class_data.class_id,
+        course_id=class_data.course_id,
+        teacher_id=class_data.teacher_id,
+        semester=class_data.semester,
+        year=class_data.year
+    )
+    db.add(new_class)
+    db.commit()
+    db.refresh(new_class)
+    return new_class
 
 
 @router.get("/{class_id}/students", response_model=list[StudentBase])
