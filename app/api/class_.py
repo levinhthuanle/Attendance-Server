@@ -50,6 +50,7 @@ async def get_class_information(
 
     return ClassInformation(
         class_id=result.class_id,
+        class_name=result.class_name,
         course_id=result.course_id,
         teacher_id=result.teacher_id,
         course_name=result.course_name,
