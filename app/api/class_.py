@@ -20,7 +20,7 @@ router = APIRouter(prefix="/class", tags=["Class"])
 
 @router.get("/{class_id}/information", response_model=ClassInformation)
 async def get_class_information(
-    class_id: str,
+    class_id: int,
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
@@ -82,7 +82,7 @@ async def create_class(
 
 @router.get("/{class_id}/students", response_model=list[StudentBase])
 async def get_class_students(
-    class_id: str,
+    class_id: int,
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
@@ -103,7 +103,7 @@ async def get_class_students(
 
 @router.get("/{class_id}/sessions", response_model=list[SessionInfo])
 async def get_class_sessions(
-    class_id: str,
+    class_id: int,
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
@@ -123,7 +123,7 @@ async def get_class_sessions(
 
 @router.get("/{class_id}/records", response_model=list[RecordOut])
 async def get_class_records(
-    class_id: str,
+    class_id: int,
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
