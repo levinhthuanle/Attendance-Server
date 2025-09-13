@@ -35,7 +35,7 @@ async def get_students(db: Session = Depends(get_db)):
     ]
 
 @router.get("/{student_id}/records", response_model=list[RecordOut])
-async def get_student_records(student_id: int, db: Session = Depends(get_db)):
+async def get_student_records(student_id: str, db: Session = Depends(get_db)):
     student = db.query(Student).filter(Student.student_id == student_id).first()
     if not student:
         raise HTTPException(status_code=404, detail="Student not found")
