@@ -4,7 +4,7 @@ from datetime import datetime
 class SessionCreate(BaseModel):
     start_time: datetime
     end_time: datetime
-    class_id: str
+    class_id: int
     teacher_id: str
 
 class SessionOut(SessionCreate):

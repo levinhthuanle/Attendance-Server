@@ -1,6 +1,7 @@
 import requests
 import random
 from faker import Faker
+from datetime import timedelta
 
 BASE_URL = "http://127.0.0.1:8000/api/v1"
 HEADERS = {"Content-Type": "application/json"}
@@ -58,14 +59,14 @@ def create_sessions(class_ids, teacher_ids, n_sessions_per_class=5):
         teacher_id = random.choice(teacher_ids)
         for i in range(n_sessions_per_class):
             start_time = fake.date_time_this_year()
-            end_time = start_time + fake.time_delta(end_datetime=None)
+            end_time = start_time + timedelta(hours=random.randint(1, 3))
             session_data = {
                 "class_id": class_id,
                 "teacher_id": teacher_id,
                 "start_time": start_time.isoformat(),
                 "end_time": end_time.isoformat()
             }
-            resp = requests.post(f"{BASE_URL}/sessions/", json=session_data, headers=HEADERS)
+            resp = requests.post(f"{BASE_URL}/session/", json=session_data, headers=HEADERS)
             sessions.append(resp.json())
     return sessions
 
@@ -223,7 +224,7 @@ def create_records(student_ids, session_objs):
             record = {
                 "student_id": student_id,
                 "session_id": session_id,
-                "status": random.choice(["present", "absent", "late"])
+                "status": random.choice(["present", "absent"])
             }
             resp = requests.post(f"{BASE_URL}/record/", json=record, headers=HEADERS)
             if resp.status_code >= 200 and resp.status_code < 300:
@@ -266,8 +267,9 @@ if __name__ == "__main__":
 
     print("Creating classes...")
     # 4. Create classes
-    classes = create_classes(n_classes=100, teacher_ids=teacher_ids, course_ids=[c[0] for c in COURSES])
+    classes = create_classes(n_classes=10, teacher_ids=teacher_ids, course_ids=[c[0] for c in COURSES])
     class_ids = classes
+    print("Class IDs size: ", len(class_ids))
     print("Classes created.")
     # 5. Create enrollments
     
@@ -275,13 +277,13 @@ if __name__ == "__main__":
     enrollments = create_enrollments(student_ids, class_ids)
     print("Enrollments created.")
     
-    # print("Creating sessions...")
-    # # 6. Create sessions
-    # sessions = create_sessions(class_ids, teacher_ids, n_sessions_per_class=15)
-    # print("Sessions created.")
+    print("Creating sessions...")
+    # 6. Create sessions
+    sessions = create_sessions(class_ids, teacher_ids, n_sessions_per_class=5)
+    print("Sessions created.")
     
-    # print("Creating attendance records...")
-    # # 7. Create attendance records
-    # records = create_records(student_ids, sessions)
-    # print("Attendance records created.")
-    # print("Sample data creation completed!")
+    print("Creating attendance records...")
+    # 7. Create attendance records
+    records = create_records(student_ids, sessions)
+    print("Attendance records created.")
+    print("Sample data creation completed!")
