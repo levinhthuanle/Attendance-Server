@@ -29,6 +29,7 @@ async def get_class_information(
             Class.class_id,
             Class.course_id,
             Class.teacher_id,
+            Class.class_name,
             Course.course_name,
             (User.first_name + " " + User.last_name).label("teacher_name"),
             Department.department_id,
@@ -40,7 +41,7 @@ async def get_class_information(
         .join(Teacher, Class.teacher_id == Teacher.teacher_id)
         .join(User, Teacher.user_id == User.user_id)
         .join(Department, User.department_id == Department.department_id)
-        .filter(Class.class_id == class_id)
+        .filter(Class.class_id == int(class_id))
         .first()
     )
 
@@ -67,11 +68,11 @@ async def create_class(
 ):
 
     new_class = Class(
-        class_id=class_data.class_id,
         course_id=class_data.course_id,
         teacher_id=class_data.teacher_id,
         semester=class_data.semester,
-        year=class_data.year
+        year=class_data.year,
+        class_name=class_data.class_name
     )
     db.add(new_class)
     db.commit()

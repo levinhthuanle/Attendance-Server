@@ -5,8 +5,9 @@ from sqlalchemy.orm import relationship
 class Class(Base):
     __tablename__ = "Class"
 
-    class_id = Column(String(255), primary_key=True, index=True)
+    class_id = Column(Integer, primary_key=True, autoincrement=True)
     course_id = Column(String(255), ForeignKey("Course.course_id"), nullable=False)
+    class_name = Column(String(255), nullable=False)
     semester = Column(String(255), nullable=False)
     year = Column(Integer, nullable=False)
     teacher_id = Column(String(255), ForeignKey("Teacher.teacher_id"), nullable=False)

@@ -6,10 +6,10 @@ import uuid
 class Session(Base):
     __tablename__ = "Session"
 
-    session_id = Column(String(255), primary_key=True, default=lambda: str(uuid.uuid4()))
+    session_id = Column(Integer, primary_key=True, autoincrement=True)
     start_time = Column(DateTime, nullable=False)
     end_time = Column(DateTime, nullable=False)
-    class_id = Column(String(255), ForeignKey("Class.class_id"), nullable=False)
+    class_id = Column(Integer, ForeignKey("Class.class_id"), nullable=False)
     teacher_id = Column(String(255), ForeignKey("Teacher.teacher_id"), nullable=False)
     
     teacher = relationship("Teacher", back_populates="sessions")
