@@ -75,6 +75,7 @@ async def get_teaching_classes(
             ClassModel.class_id,
             ClassModel.course_id,
             ClassModel.teacher_id,
+            ClassModel.class_name,
             Course.course_name,
             (User.first_name + " " + User.last_name).label("teacher_name"),
             DeptCourse.department_id.label("department_id"),
