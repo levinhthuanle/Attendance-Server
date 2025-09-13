@@ -8,15 +8,15 @@ class SessionCreate(BaseModel):
     teacher_id: str
 
 class SessionOut(SessionCreate):
-    session_id: str
+    session_id: int
     model_config = ConfigDict(from_attributes=True)
     
 class AttendanceRequest(BaseModel):
-    session_id: str
-    status: str = "Present"   
+    session_id: int
+    status: str = "present"
 
 class SessionInfo(BaseModel):
-    session_id: str
+    session_id: int
     start_time: datetime
     end_time: datetime
 
