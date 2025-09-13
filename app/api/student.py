@@ -35,7 +35,7 @@ async def get_students(db: Session = Depends(get_db)):
     ]
 
 @router.get("/{student_id}/records", response_model=list[RecordOut])
-async def get_student_records(student_id: str, db: Session = Depends(get_db)):
+async def get_student_records(student_id: int, db: Session = Depends(get_db)):
     student = db.query(Student).filter(Student.student_id == student_id).first()
     if not student:
         raise HTTPException(status_code=404, detail="Student not found")
@@ -89,7 +89,7 @@ async def get_attendance_records(
 
 @router.get("/check-enrollment/{class_id}", response_model=EnrollmentCheckResponse)
 async def check_enrollment(
-    class_id: str,
+    class_id: int,
     current_user = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
@@ -146,7 +146,7 @@ async def get_all_class_enrollments(
 
 @router.get("/{class_id}/all/attendance_records", response_model=list[RecordOut])
 async def get_all_attendance_records(
-    class_id: str,
+    class_id: int,
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):

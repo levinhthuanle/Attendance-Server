@@ -16,11 +16,11 @@ def get_sessions(db: Session = Depends(get_db)):
     return get_all_session_service(db)
 
 @router.get("/current_session/", response_model=List[SessionOut])
-def get_current_session(class_id : str, db: Session = Depends(get_db)):
+def get_current_session(class_id : int, db: Session = Depends(get_db)):
     return get_current_session_service(db, class_id)
 
 @router.get("/{session_id}", response_model=SessionOut)
-def get_session(session_id: str, db: Session = Depends(get_db)):
+def get_session(session_id: int, db: Session = Depends(get_db)):
     session = get_session_service(db, session_id)
     if not session:
         raise HTTPException(status_code=404, detail="Session not found")
