@@ -1,4 +1,3 @@
-# Dockerfile
 FROM python:3.11-slim
 
 ENV PYTHONDONTWRITEBYTECODE=1
@@ -13,7 +12,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
  && rm -rf /var/lib/apt/lists/*
 
-
 COPY requirements.txt .
 
 RUN pip install --upgrade pip \
@@ -21,10 +19,15 @@ RUN pip install --upgrade pip \
 
 COPY . .
 
+
+RUN chmod +x /app/entrypoint.sh
+
+# tạo user non-root
 RUN useradd --create-home appuser \
  && chown -R appuser:appuser /app
-
 USER appuser
 
+
 EXPOSE 8000
+
 CMD ["./entrypoint.sh"]
